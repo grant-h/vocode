@@ -12,15 +12,24 @@ ex_rule = MappingRule(
 		name="insert",
 		mapping={
 			 "insert mode": Key("i"),
-			 "select all": Key("g, g, V, G"),
+
+			 "select all [text]": Key("g, g, V, G"),
 			 "undo": Key("u"),
 			 "redo": Key("c-r"),
 			 "escape" : Key("escape"),
+			 "end command" : Key("escape"),
+
 			 "bottom" : Key("G"),
 			 "top" : Key("g,g"),
 			 "enter": Key("\n"),
 			 "next": Key("down,fn,left "),
-			 "end" : Key("fn,right")
+			 "end" : Key("fn,right"),
+
+			 "parns":        Text("()") + Key("left"),
+			 "brax":           Text("[]") + Key("left"),
+			 "curly":          Text("{}") + Key("left"),
+			 "angle":          Text("<>") + Key("left")
+			 
 			}
 	)
 
