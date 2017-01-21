@@ -16,10 +16,9 @@ logging.getLogger("vimstate").setLevel(logging.INFO)
 state = VimState()
 
 normal_rules = VimNormalRules()
-normal_rules.disable()
+normal_rules.parent = state
 
 insert_rules = VimInsertRules()
-insert_rules.disable()
 
 # Associate grammars with Vim states
 state.grammars['NORMAL'] += [normal_rules]
@@ -51,6 +50,11 @@ class MetaRules(MappingRule):
 # Create our main grammar with rules
 register_grammar("vocode_vim", [normal_rules, insert_rules])
 register_grammar("vocode_meta", [MetaRules()])
+
+# MUST be called last
+normal_rules.disable()
+insert_rules.disable()
+state.init()
 
 def unload():
 	global grammars
