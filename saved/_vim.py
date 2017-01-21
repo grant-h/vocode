@@ -11,16 +11,12 @@ grammar = Grammar("vim_example")
 ex_rule = MappingRule(
 		name="insert",
 		mapping={
-			 "insert mode": Key("i"),
-			 "select all": Key("g, g, V, G"),
+			 "insert mode": Key("I"),
+			 "select all text": Key("g, g, V, G"),
 			 "undo": Key("u"),
 			 "redo": Key("c-r"),
 			 "escape" : Key("escape"),
-			 "bottom" : Key("G"),
-			 "top" : Key("g,g"),
-			 "enter": Key("\n"),
-			 "next": Key("down,fn,left "),
-			 "end" : Key("fn,right")
+			 "end command" : Key("escape")
 			}
 	)
 

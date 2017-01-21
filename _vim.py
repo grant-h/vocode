@@ -9,18 +9,17 @@ mode = 0
 grammar = Grammar("vim_example")
 
 ex_rule = MappingRule(
-		name="insert",
+		name="our-mapping",
 		mapping={
-			 "insert mode": Key("i"),
-			 "select all": Key("g, g, V, G"),
-			 "undo": Key("u"),
-			 "redo": Key("c-r"),
-			 "escape" : Key("escape"),
+			 "insert [mode]": Key("i"),
+			 "escape" : Key("escape") ,
+			 "(undo|scratch|whoops)": Key("u"),
 			 "bottom" : Key("G"),
 			 "top" : Key("g,g"),
-			 "enter": Key("\n"),
-			 "next": Key("down,fn,left "),
-			 "end" : Key("fn,right")
+			 "redo": Key("c-r"),
+			 "selectall": Key("g,g,V,G"),	 
+			 "enter" : Key("enter")
+
 			}
 	)
 
