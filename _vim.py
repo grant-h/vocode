@@ -6,13 +6,11 @@ from dragonfly import *
 # 2 - visual
 mode = 0
 
-grammar = Grammar("vim_example")
+grammar = Grammar("vim_example2")
 
 ex_rule = MappingRule(
 		name="our-mapping",
 		mapping={
-			 "insert [mode]": Key("i"),
-			 "escape" : Key("escape") ,
 			 "(undo|scratch|whoops)": Key("u"),
 			 "bottom" : Key("G"),
 			 "top" : Key("g,g"),
