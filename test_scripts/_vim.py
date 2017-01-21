@@ -17,6 +17,9 @@ ex_rule = MappingRule(
 			 "redo": Key("c-r"),
 			 "escape" : Key("escape"),
 			 "end command" : Key("escape")
+			 "top" : Key("gg")
+			 "bottom" : Key("G")
+			 
 			}
 	)
 
