@@ -1,5 +1,7 @@
 from dragonfly import *
 
+import logging
+
 from lib import *
 from rules import *
 
@@ -9,8 +11,19 @@ grammars = []
 print("")
 print(">>> Vocode v%s now starting" % __VERSION__)
 
+logging.getLogger("vimstate").setLevel(logging.INFO)
+
 state = VimState()
 
+normal_rules = VimNormalRules()
+normal_rules.disable()
+
+insert_rules = VimInsertRules()
+insert_rules.disable()
+
+# Associate grammars with Vim states
+state.grammars['NORMAL'] += [normal_rules]
+state.grammars['INSERT'] += [insert_rules]
 
 #state.normal_grammar = ???
 #state.insert_grammar = ???
@@ -36,7 +49,7 @@ class MetaRules(MappingRule):
 	defaults = {}
 
 # Create our main grammar with rules
-register_grammar("vocode_vim", [VimNormalRules(), VimInsertRules()])
+register_grammar("vocode_vim", [normal_rules, insert_rules])
 register_grammar("vocode_meta", [MetaRules()])
 
 def unload():
@@ -49,6 +62,3 @@ def unload():
 		g = None
 
 	grammars = []
-
-	
-
