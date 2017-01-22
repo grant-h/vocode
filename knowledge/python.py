@@ -69,6 +69,33 @@ def var_binop(varA, varB, op):
         action = Text(left) + Text(" " + op + " ") + Text(right)
         action.execute()
 
+def print_func(var_type, identifier):
+        category=str(var_type)
+        ident=str(identifier)
+        action = None
+
+        if (category == "variable"):
+                action = Text("print(") + Text(format_default(ident)) + Text(")")
+        elif (category == "literal"):
+                action = Text("print(")+ Key("dquote") + Text(ident) + Key("dquote") + Text(")")
+
+        if action:
+            action.execute()
+
+def assignment_func(text, var_type, identifier):
+        catagory = str(var_type)
+        roperand = str(identifier)
+        loperand = str(text)
+        action = None
+        
+        if ( catagory == "variable" or category == "int" or catagory == "integer"):
+                action = Text("%s" % format_default(loperand) + " ") + Key(equals) + Text( " " + "%s" % format_default(roperand))
+        elif ( catagory == "string" ) :
+                action = Text("%s" % format_default(loperand) + " ") + Key(equals) + Text( " " + "\"%s\"" % format_default(roperand))
+
+        if action:
+            action.execute()
+
 class PythonRules(MappingRule):
 	name = "python_lang"
 	mapping = {
@@ -79,6 +106,9 @@ class PythonRules(MappingRule):
 		"var camel <text>" : Function(fmtVarCamel),
 		"var default <text>" : Function(fmtVarDefault),
 		"var class <text>" : Function(fmtVarClass),
+                # type = {int, string, variable} ident=...
+                #"var default <text> equal[s] to <var_type> <identifier>" : Function(assignment_func),
+
 		"assign to" : Text(" = "),
 
 		# Python version of None
@@ -86,6 +116,9 @@ class PythonRules(MappingRule):
 		"false" : Text("False"),
 		"true" : Text("True"),
 		"pass" : Text("pass"),
+
+                # Print helpers
+                "print <var_type> <identifier>" : Function(print_func),
 
 		# Python types
 		"whomp (array | access)" : Text("[]") + Key("left"),
@@ -147,6 +180,8 @@ class PythonRules(MappingRule):
             Dictation("var"),
             Dictation("varA"),
             Dictation("varB"),
+            Dictation("var_type"),
+            Dictation("identifier"),
             IntegerRef("total_line", 1, 1000),
             IntegerRef("start", 1, 1000),
             IntegerRef("end", 1, 1000),
@@ -156,6 +191,7 @@ class PythonRules(MappingRule):
         defaults = {
             "text" : "",
             "total_line" : 1,
+            "identifier": "",
             "start": 0,
             "end": 5,
             "numA":0,

@@ -16,7 +16,11 @@ class VimNormalRules(MappingRule):
 	mapping = {
 		'insert | insert mode':  Key("i"),
 		'escape':  Key("escape"),
+                # Visual
 		'grab all [text]' : Key("g, g, V, G"),
+
+                # Commands
+                "run current (file | program)" : Key("escape") + Text(":!python %%") + Key("enter"),
 
 		# Buffer management
 		"save" : Key("escape,colon,w,enter"),
@@ -39,6 +43,10 @@ class VimNormalRules(MappingRule):
                 "[go] left <total_line> word[s]" : Key("b:%(total_line)d"),
                 "goto [the] first character" : Key("0"),
 
+                "zip" : Key("o"),
+                "open" : Text("("),
+                "close" : Text(")"),
+
 		"top" : Key("g,g"),
 		"[goto] [the] end of [the] line" : Key("dollar"),
 		"[goto] [the] (start|beginning) of [the] line" : Key("caret"),
@@ -47,6 +55,7 @@ class VimNormalRules(MappingRule):
 		# http://dragonfly.readthedocs.io/en/latest/rules.html#compoundrule-class
 		#"append" : Key("a"),
 		"append at [the] end of [the] line" : Key("A"),
+                "slap" : Key("A"),
 		# TODO: fix conflict
 		#"insert at [the] (start|beginning) of [the] line" : Key("I"),
 

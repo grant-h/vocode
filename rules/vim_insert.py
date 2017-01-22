@@ -11,6 +11,7 @@ class VimInsertRules(MappingRule):
 		"brax":   Text("[]") + Key("left"),
 		"curly":  Text("{}") + Key("left"),
 		"string":  Text("\"\"") + Key("left"),
+                "number <num>" : Text("%(num)d"),
 
                 # Editing
 		"delete" : Key("delete"),
@@ -24,8 +25,8 @@ class VimInsertRules(MappingRule):
                 'save' : Text("save"),
                 'quit' : Text("quit")
 		}
-	extras = []
-	defaults = {}
+	extras = [IntegerRef("num", -20000, 20000)]
+        defaults = {"num":0}
 
 	def _process_recognition(self, value, extras):
                 action = value._action
