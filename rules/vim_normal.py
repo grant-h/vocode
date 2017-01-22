@@ -21,6 +21,11 @@ class VimNormalRules(MappingRule):
 		# Buffer management
 		"save" : Key("escape,colon,w,enter"),
 		"(quit | exit)" : Key("escape,colon,q,enter"),
+                "window right" : Key("c-w,l"),
+                "window up" : Key("c-w,k"),
+                "window down" : Key("c-w,j"),
+                "window left" : Key("c-w,h"),
+                "next tab" : Key("g,t"),
 
 		# History
 		"(undo|scratch|whoops)": Key("u"),
@@ -47,7 +52,13 @@ class VimNormalRules(MappingRule):
 
 		# Editing
 		"delete" : Key("x"),
+		"zap word" : Key("d,w"),
+		"zap <total_line> word[s]" : Key("d") + Text("%(total_line)d") + Key("w"),
 		"strike | delete line" : Key("d,d"),
+		"delete <total_line> line[s]" : Key("d") + Text("%(total_line)d") + Key("d"),
+                "delete [u]till [the] end of [the] line" : Key("d,dollar,escape"),
+                "delete all right" : Key("d,dollar,escape"),
+                "delete all left" : Key("d,caret,escape"),
 		"select <total_line> line[s] above" : Key("escape,s-v,up:%(total_line)d"),
 		"select <total_line> line[s] below" : Key("escape,s-v,down:%(total_line)d"),
 		"copy <total_line> line[s] above" : Key("escape,V,up:%(total_line)d,y"),

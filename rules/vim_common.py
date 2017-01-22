@@ -4,6 +4,7 @@ class VimCommonRules(MappingRule):
 	name = "vim_common"
 	mapping = {
 		"enter|return" : Key("enter"),
+                "(blabber|babel) <text>" : Text("%(text)s"),
 
 		"pageup" : Key("pgup"),
 		"pagedown": Key("pgdown"),
