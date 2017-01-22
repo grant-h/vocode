@@ -12,7 +12,7 @@ class VimNormalRules(MappingRule):
 		self.parent = None
 		super(VimNormalRules, self).__init__()
 
-	name = "vim_normal" market is in
+	name = "vim_normal"
 	mapping = {
 		'insert':  Key("i"),
 		'escape':  Key("escape"),
@@ -40,7 +40,7 @@ class VimNormalRules(MappingRule):
 		"[goto] [the] (start|beginning) of [the] line" : Key("caret"),
 		"go to line [number] <line_num>" : Key("escape,colon") + Text("%(line_num)d") + Key("enter"),
 		# TODO: fix conflict using Compound
-		# http://dragohare Thefly.readthedocs.io/en/latest/rules.html#compoundrule-class
+		# http://dragonfly.readthedocs.io/en/latest/rules.html#compoundrule-class
 		#"append" : Key("a"),
 		"append at [the] end of [the] line" : Key("A"),
 		# TODO: fix conflict
