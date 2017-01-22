@@ -3,13 +3,14 @@ from dragonfly import *
 class VimInsertRules(MappingRule):
 	name = "vim_insert"
 	mapping = {
-		'escape':  Key("escape")
+		'escape | normal mode':  Key("escape")
 		}
 	extras = []
 	defaults = {}
 
-	def enter_normal(action):
-		action.execute()
-		#global listeners
-		#for l in listeners:
-		#	l.handle_event("normal")
+	def _process_recognition(self, value, extras):
+		print("INST: %s" % value._action._spec)
+		if value._action._spec == "escape":
+			self.parent.handle_event("normal")
+
+		value.execute(extras)

@@ -7,7 +7,20 @@ class VimNormalRules(MappingRule):
 
 	name = "vim_normal"
 	mapping = {
-		'insert':  Key("i")
+		'insert':  Key("i"),
+		'escape':  Key("escape"),
+		'grab all [text]' : Key("g, g, V, G"),
+
+		# History
+		"(undo|scratch|whoops)": Key("u"),
+		"redo": Key("c-r"),
+
+		# Movement
+		"bottom" : Key("G"),
+		"top" : Key("g,g")
+
+		# Movements
+		#"<n> up" : Text ("%(up)s"),
 		}
 	extras = []
 	defaults = {}
@@ -15,6 +28,7 @@ class VimNormalRules(MappingRule):
 	def _process_recognition(self, value, extras):
 		#print "REC", str(self), "VALUE", str(value), "EXTRAS", str(extras)
 		#print "action", value._action, "data", value._data
+		print("NORM: %s" % value._action._spec)
 		if value._action._spec == "i":
 			self.parent.handle_event("insert")
 

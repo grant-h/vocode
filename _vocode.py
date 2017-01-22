@@ -4,6 +4,7 @@ import logging
 
 from lib import *
 from rules import *
+from knowledge import *
 
 __VERSION__ = "0.1"
 grammars = []
@@ -19,10 +20,13 @@ normal_rules = VimNormalRules()
 normal_rules.parent = state
 
 insert_rules = VimInsertRules()
+insert_rules.parent = state
+
+python_rules = PythonRules()
 
 # Associate grammars with Vim states
 state.grammars['NORMAL'] += [normal_rules]
-state.grammars['INSERT'] += [insert_rules]
+state.grammars['INSERT'] += [insert_rules, python_rules]
 
 #state.normal_grammar = ???
 #state.insert_grammar = ???
@@ -42,7 +46,7 @@ def register_grammar(name, rules):
 class MetaRules(MappingRule):
 	name = "meta"
 	mapping = {
-		'(lock Dragon | deactivate)':  Playback([(["go", "to", "sleep"], 0.0)])
+		'(lock Dragon | deactivate | sleep | shut up)':  Playback([(["go", "to", "sleep"], 0.0)])
 			}
 	extras = []
 	defaults = {}
@@ -50,10 +54,12 @@ class MetaRules(MappingRule):
 # Create our main grammar with rules
 register_grammar("vocode_vim", [normal_rules, insert_rules])
 register_grammar("vocode_meta", [MetaRules()])
+register_grammar("vocode_lang", [python_rules])
 
 # MUST be called last
 normal_rules.disable()
 insert_rules.disable()
+python_rules.disable()
 state.init()
 
 def unload():
