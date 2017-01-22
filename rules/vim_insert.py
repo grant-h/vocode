@@ -4,7 +4,7 @@ from dragonfly import *
 class VimInsertRules(MappingRule):
 	name = "vim_insert"
 	mapping = {
-		'escape | normal mode':  Key("escape"),
+		'escape | normal mode | cancel':  Key("escape"),
 
 		# Formatting
 		"parns":  Text("()") + Key("left"),
@@ -14,8 +14,9 @@ class VimInsertRules(MappingRule):
                 "number <num>" : Text("%(num)d"),
 
                 # Editing
-		"delete" : Key("delete"),
-		"backspace|back" : Key("backspace"),
+                "(<num> delete | delete <num>)" : Key("delete:%(num)d"),
+                "back <num>" : Key("backspace:%(num)d"),
+                "backspace <num>" : Key("backspace:%(num)d"),
 
                 # Quirks
                 'cut' : Text("cut"),
@@ -26,7 +27,7 @@ class VimInsertRules(MappingRule):
                 'quit' : Text("quit")
 		}
 	extras = [IntegerRef("num", -20000, 20000)]
-        defaults = {"num":0}
+        defaults = {"num":1}
 
 	def _process_recognition(self, value, extras):
                 action = value._action

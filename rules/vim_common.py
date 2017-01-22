@@ -17,7 +17,11 @@ class VimCommonRules(MappingRule):
                 "up <total_line>" : Key("up:%(total_line)d"),
                 "down <total_line>" : Key("down:%(total_line)d"),
                 "left <total_line>" : Key("left:%(total_line)d"),
-                "right <total_line>" : Key("right:%(total_line)d")
+                "right <total_line>" : Key("right:%(total_line)d"),
+                "<total_line> up" : Key("up:%(total_line)d"),
+                "<total_line> down" : Key("down:%(total_line)d"),
+                "<total_line> left" : Key("left:%(total_line)d"),
+                "<total_line> right" : Key("right:%(total_line)d")
 		}
 	extras = [
             Dictation("text"),

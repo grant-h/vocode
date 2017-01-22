@@ -124,19 +124,20 @@ class PythonRules(MappingRule):
 		"whomp (array | access)" : Text("[]") + Key("left"),
 		"whomp (lookup|dictionary)" : Text("dict()"),
 		"whomp set" : Text("set()"),
+		"make (str | string)" : Text("str()") + Key("left"),
 
                 # for loop
-                "for [from] <start> to <end>" : Text("for i in range(%(start)d, %(end)d):") + Key("enter,tab"),
+                "for [from] <start> to <end>" : Text("for i in range(%(start)d, %(end)d):") + Key("enter"),
 
                 # if statement bool
-                "if <var>" : Text("if %(var)s:") + Key("enter,tab"),
+                "if <var>" : Text("if %(var)s:") + Key("enter"),
                 # else if statement bool
-                "else if <var>" : Text("elif %(var)s: ") + Key("enter,tab"),
+                "else if <var>" : Text("elif %(var)s: ") + Key("enter"),
 
                 # if equals int
-                "if equals <varA> <varB>" : Text("if %(varA)s == %(varB)s:") + Key("enter,tab"),
+                "if equals <varA> <varB>" : Text("if %(varA)s == %(varB)s:") + Key("enter"),
                 #simple else statement
-                "else" : Text("else:") + Key("enter,tab"),
+                "else" : Text("else:") + Key("enter"),
                 #while statement
                 "while" : Text("while :") + Key("left"),
                 #comparitor
@@ -146,13 +147,13 @@ class PythonRules(MappingRule):
                 "<numA> minus <numB>" : Text("%(numA)d - %(numB)d"),
                 "<numA> divide <numB>" : Text("%(numA)d / %(numB)d"),
                 "<numA> (mult|multiply|times) <numB>" : Text("%(numA)d * %(numB)d"),
-                "<numA> mod[ulus] <numB>" : Text("%(numA)d") + Text("%%") + Text("%(numB)d"),
+                "<numA> (mod | modulus) <numB>" : Text("%(numA)d") + Text("%%") + Text("%(numB)d"),
                 # Variable versions
                 "<varA> plus <varB>" : Function(var_binop, op="+"),
                 "<varA> minus <varB>" : Function(var_binop, op="-"),
                 "<varA> divide <varB>" : Function(var_binop, op="/"),
                 "<varA> (mult|multiply|times) <varB>" : Function(var_binop, op="*"),
-                "<varA> mod[ulus] <varB>" : Function(var_binop, op="%"),
+                "<varA> (mod | modulus) <varB>" : Function(var_binop, op="%"),
 
                 #### begin untested code
                 #less or greater than NUM

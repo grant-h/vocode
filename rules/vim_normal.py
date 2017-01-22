@@ -38,16 +38,16 @@ class VimNormalRules(MappingRule):
                 "<total_line> redo": Key("c-r:%(total_line)d"),
 
 		# Movement
-                "bottom" : Key("G"),
-                "[go] right <total_line> word[s]" : Key("w:%(total_line)d"),
-                "[go] left <total_line> word[s]" : Key("b:%(total_line)d"),
+                "bottom | end of file" : Key("G"),
+                "[go] (right | forward) <total_line> word[s]" : Key("w:%(total_line)d"),
+                "[go] (left | back) <total_line> word[s]" : Key("b:%(total_line)d"),
                 "goto [the] first character" : Key("0"),
 
                 "zip" : Key("o"),
-                "open" : Text("("),
-                "close" : Text(")"),
+                "lparen" : Text("("),
+                "rparen" : Text(")"),
 
-		"top" : Key("g,g"),
+		"top | top of file | beginning of file" : Key("g,g"),
 		"[goto] [the] end of [the] line" : Key("dollar"),
 		"[goto] [the] (start|beginning) of [the] line" : Key("caret"),
 		"go to line [number] <line_num>" : Key("escape,colon") + Text("%(line_num)d") + Key("enter"),
