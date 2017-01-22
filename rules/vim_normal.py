@@ -17,7 +17,6 @@ class VimNormalRules(MappingRule):
 		'insert | insert mode':  Key("i"),
 		'escape':  Key("escape"),
 		'grab all [text]' : Key("g, g, V, G"),
-		"enter|return" : Key("enter"),
 
 		# Buffer management
 		"save" : Key("escape,colon,w,enter"),
@@ -25,22 +24,17 @@ class VimNormalRules(MappingRule):
 
 		# History
 		"(undo|scratch|whoops)": Key("u"),
+                "<total_line> undo": Key("u:%(total_line)d"),
 		"redo": Key("c-r"),
+                "<total_line> redo": Key("c-r:%(total_line)d"),
 
 		# Movement
-		"pageup" : Key("pgup"),
-		"pagedown": Key("pgdown"),
-		"bottom" : Key("G"),
+                "bottom" : Key("G"),
+                "[go] right <total_line> word[s]" : Key("w:%(total_line)d"),
+                "[go] left <total_line> word[s]" : Key("b:%(total_line)d"),
+                "goto [the] first character" : Key("0"),
 
 		"top" : Key("g,g"),
-		"up" : Key ("up"),
-		"down" : Key ("down"),
-		"left" : Key("left"),
-		"right" : Key("right"),
-                "up <total_line>" : Key("up:%(total_line)d"),
-                "down <total_line>" : Key("down:%(total_line)d"),
-                "left <total_line>" : Key("left:%(total_line)d"),
-                "right <total_line>" : Key("right:%(total_line)d"),
 		"[goto] [the] end of [the] line" : Key("dollar"),
 		"[goto] [the] (start|beginning) of [the] line" : Key("caret"),
 		"go to line [number] <line_num>" : Key("escape,colon") + Text("%(line_num)d") + Key("enter"),
@@ -61,16 +55,21 @@ class VimNormalRules(MappingRule):
 		"cut <total_line> line[s] above" : Key("escape,V,up:%(total_line)d,d"),
 		"cut <total_line> line[s] below" : Key("escape,V,down:%(total_line)d,d"),
 		"paste": Key("p"),
+		"paste above": Key("P"),
 		"copy" : Key("y"),
 		"cut" : Key("d"),
+                # Shifting/indentation
+                "shift left" : Key("langle,langle"),
+                "shift left <total_line> time[s]" : Key("langle:%(total_line)d,langle:%(total_line)d"),
+                "shift right" : Key("rangle,rangle"),
+                "shift right <total_line> time[s]" : Key("rangle:%(total_line)d,rangle:%(total_line)d"),
+                "shift <total_line> line[s] left" : Key("langle") + Text("%(total_line)d") + Key("langle"),
+                "shift <total_line> line[s] right" : Key("rangle") + Text("%(total_line)d") + Key("rangle"),
 		
 		# Searching
 		"(find | search for) <text>" : Function(do_search),
 		"next" : Key("n"),
 		"clear search" : Text(":nohl") + Key("enter")
-
-		# Movements
-		#"<n> up" : Text ("%(up)s"),
 		}
 
 	extras = [

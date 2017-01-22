@@ -8,7 +8,19 @@ class VimInsertRules(MappingRule):
 		# Formatting
 		"parns":  Text("()") + Key("left"),
 		"brax":   Text("[]") + Key("left"),
-		"curly":  Text("{}") + Key("left")
+		"curly":  Text("{}") + Key("left"),
+
+                # Editing
+		"delete" : Key("delete"),
+		"backspace|back" : Key("backspace"),
+
+                # Quirks
+                'cut' : Text("cut"),
+                'paste'  : Text("paste"),
+                'undo' : Text("undo"),
+                'redo' : Text("redo"),
+                'save' : Text("save"),
+                'quit' : Text("quit")
 		}
 	extras = []
 	defaults = {}
