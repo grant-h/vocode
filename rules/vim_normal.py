@@ -14,7 +14,7 @@ class VimNormalRules(MappingRule):
 
 	name = "vim_normal"
 	mapping = {
-		'insert':  Key("i"),
+		'insert | insert mode':  Key("i"),
 		'escape':  Key("escape"),
 		'grab all [text]' : Key("g, g, V, G"),
 		"enter|return" : Key("enter"),
@@ -31,11 +31,16 @@ class VimNormalRules(MappingRule):
 		"pageup" : Key("pgup"),
 		"pagedown": Key("pgdown"),
 		"bottom" : Key("G"),
+
 		"top" : Key("g,g"),
 		"up" : Key ("up"),
 		"down" : Key ("down"),
 		"left" : Key("left"),
 		"right" : Key("right"),
+                "up <total_line>" : Key("up:%(total_line)d"),
+                "down <total_line>" : Key("down:%(total_line)d"),
+                "left <total_line>" : Key("left:%(total_line)d"),
+                "right <total_line>" : Key("right:%(total_line)d"),
 		"[goto] [the] end of [the] line" : Key("dollar"),
 		"[goto] [the] (start|beginning) of [the] line" : Key("caret"),
 		# TODO: fix conflict using Compound
@@ -57,8 +62,19 @@ class VimNormalRules(MappingRule):
 		# Movements
 		#"<n> up" : Text ("%(up)s"),
 		}
-	extras = [Dictation("text")]
-	defaults = {"text" : ""}
+	extras = [
+            Dictation("text"),
+            Dictation("var"),
+            IntegerRef("total_line", 1, 100),
+            IntegerRef("start", 1, 100),
+            IntegerRef("end", 1, 100)
+            ]
+        defaults = {
+            "text" : "",
+            "total_line" : 1,
+            "start": 0,
+            "end": 5
+            }
 
 	def _process_recognition(self, value, extras):
 		#print "REC", str(self), "VALUE", str(value), "EXTRAS", str(extras)

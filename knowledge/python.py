@@ -79,10 +79,31 @@ class PythonRules(MappingRule):
 		# Python types
 		"whomp (array | access)" : Text("[]") + Key("left"),
 		"whomp (lookup|dictionary)" : Text("dict()"),
-		"whomp set" : Text("set()")
-		}
-	extras = [Dictation("text")]
-	defaults = {}
+		"whomp set" : Text("set()"),
+
+                # for loop
+                "for [from] <start> to <end>" : Text("for i in range(%(start)d, %(end)d):") + Key("enter,tab"),
+                # if statement
+                "if <var>" : Text("if %(var)s: ") + Key("enter,tab"),
+                # else statement
+                "else if <var>" : Text("elif %(var)s: ") + Key("enter,tab")
+                #"if <var1> [is] less [than] <var2>" : Text("for i in range(%(start)d, %(end)d): "),
+                #"if <var1> [is] equal [to] <var2>" : Text("for i in range(%(start)d, %(end)d): "),
+                #"if <var1> [is] greater [than] <var2>" : Text("for i in range(%(start)d, %(end)d): "),
+      }
+	extras = [
+            Dictation("text"),
+            Dictation("var"),
+            IntegerRef("total_line", 1, 100),
+            IntegerRef("start", 1, 100),
+            IntegerRef("end", 1, 100)
+            ]
+        defaults = {
+            "text" : "",
+            "total_line" : 1,
+            "start": 0,
+            "end": 5
+            }
 
 	def _process_recognition(self, value, extras):
 		print("PY: %s" % str(value._action))
